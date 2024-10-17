@@ -1,6 +1,7 @@
 # AWS Load Balancer 실습 🚀
 
-https://catalog.us-east-1.prod.workshops.aws/workshops/600420b7-5c4c-498f-9b80-bc7798963ba3/ko-KR/ec2/50-elb
+https://catalog.us-east-1.prod.workshops.aws/workshops/600420b7-5c4c-498f-9b80-bc7798963ba3/ko-KR/ec2/50-elb  
+  
 AWS TechCamp의 실습자료를 AWS CLI를 사용하여 VPC, 서브넷, 인터넷 게이트웨이, 라우팅 테이블, 보안 그룹, EC2 인스턴스, 그리고 Application Load Balancer를 생성해보았습니다.
 
 
@@ -99,6 +100,14 @@ TG_ARN=$(aws elbv2 create-target-group --name <TG_NAME> --protocol HTTP --port 8
 aws elbv2 register-targets --target-group-arn $TG_ARN --targets Id=$INSTANCE_ID_1 Id=$INSTANCE_ID_2
 aws elbv2 create-listener --load-balancer-arn $ALB_ARN --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$TG_ARN
 ```
+
+### 8. 웹으로 접속해보기
+```bash
+echo "Access your application at: $(aws elbv2 describe-load-balancers --load-balancer-arns $ALB_ARN --query 'LoadBalancers[0].DNSName' --output text)"
+```
+![image](https://github.com/user-attachments/assets/96755216-3282-445c-9821-24b5048c65d1)
+
+
 
 ## 문제 해결 🔧
 인스턴스 상태가 unhealthy인 경우:
