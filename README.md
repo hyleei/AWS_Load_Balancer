@@ -55,6 +55,7 @@ aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port
 ### EC2 인스턴스 생성 💻
 ```bash
 AMI_ID=$(aws ec2 describe-images --owners amazon --filters "Name=name,Values=amzn2-ami-hvm-*-x86_64-gp2" "Name=state,Values=available" --query "reverse(sort_by(Images, &CreationDate))[0].ImageId" --output text)
+
 cat << EOF > user_data.sh
 #!/bin/sh
         
